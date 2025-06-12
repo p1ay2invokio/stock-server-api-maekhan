@@ -1,15 +1,21 @@
 import express, {Request, Response} from 'express'
 import cors from 'cors'
 import { PrismaClient } from '@prisma/client'
+import fs from 'fs'
+import https from 'https';
 
 const prisma = new PrismaClient()
 
 const app = express()
 
 
-app.use(cors())
 app.use(express.json())
+app.use(cors())
 
+const options = {
+  key: fs.readFileSync('./privkey.pem'),
+  cert: fs.readFileSync('./fullchain.pem'),
+};
 
 app.get("/api/product/:barcode", async(req: Request, res: Response)=>{
     
@@ -35,6 +41,6 @@ app.get("/api/product/:barcode", async(req: Request, res: Response)=>{
 })
 
 
-app.listen(process.env.PORT, ()=>{
-    console.log(`Server is running on port ${process.env.PORT}`)
-})
+https.createServer(options, app).listen(443, () => {
+  console.log('Running on HTTPS');
+});
