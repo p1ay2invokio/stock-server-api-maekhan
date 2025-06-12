@@ -1,0 +1,9 @@
+services:
+  stock:
+    image: .
+    container_name: 'stock'
+    ports:
+      - 3001:3001
+    environment:
+      PORT: 3001
+      DATABASE_URL: mysql://root:@localhost:3306/onepointofsale

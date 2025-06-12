@@ -1,0 +1,1608 @@
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model activitylog {
+  Id           Int       @id @default(autoincrement())
+  Page         String    @db.VarChar(255)
+  Title        String    @db.VarChar(255)
+  Description  String    @db.MediumText
+  ComputerName String    @db.VarChar(255)
+  ShowOnAdmin  Int?
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model barcodemappingsetting {
+  Id           Int       @id @default(autoincrement())
+  Sources      String    @db.VarChar(255)
+  Destination  String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model barcodetemplate {
+  Id                       Int       @id @default(autoincrement())
+  Name                     String    @db.VarChar(255)
+  PaperWidth               Float?    @db.Float
+  PaperHeight              Float?    @db.Float
+  Row                      Int?
+  Column                   Int?
+  MarginTop                Float?    @db.Float
+  MarginLeft               Float?    @db.Float
+  MarginBottom             Float?    @db.Float
+  MarginRigth              Float?    @db.Float
+  IsCustomBarcodeSize      Int?
+  BarcodeWidth             Float?    @db.Float
+  BarcodeHeight            Float?    @db.Float
+  IsCustomBarcodeSpace     Int?
+  BarcodeSpaceRow          Float?    @db.Float
+  BarcodeSpaceColumn       Float?    @db.Float
+  BarcodeBorderType        Int?
+  IsPrintBorder            Int?
+  BorderWidth              Float?    @db.Float
+  IsSystem                 Int?
+  LabelDesignTemplateId    Int?
+  IsUseLabelDesignTemplate Int?
+  LastUpdate               DateTime? @db.DateTime(0)
+  Create                   DateTime? @db.DateTime(0)
+  CreateBy                 String    @db.VarChar(255)
+  LastUpdateBy             String    @db.VarChar(255)
+  IsDelete                 Int?
+}
+
+model billingnote {
+  Id           Int       @id @default(autoincrement())
+  MemberId     String    @db.VarChar(255)
+  Status       Int?
+  Remarks      String    @db.VarChar(255)
+  DueDate      String    @db.VarChar(255)
+  PaymentDate  DateTime? @db.DateTime(0)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model billingnotedetail {
+  Id                 Int       @id @default(autoincrement())
+  BillingNoteId      Int?
+  BillId             Int?
+  OrderId            Int?
+  OrderInstallmentId Int?
+  Date               DateTime? @db.DateTime(0)
+  DueDate            DateTime? @db.DateTime(0)
+  Total              Float?    @db.Float
+  Remarks            String    @db.VarChar(255)
+  LastUpdate         DateTime? @db.DateTime(0)
+  Create             DateTime? @db.DateTime(0)
+  CreateBy           String    @db.VarChar(255)
+  LastUpdateBy       String    @db.VarChar(255)
+  IsDelete           Int?
+}
+
+model billingnotesetting {
+  Type                  String @id @db.VarChar(255)
+  Logo                  String @db.MediumText
+  LogoSize              String @db.VarChar(255)
+  Header                String @db.VarChar(255)
+  SubHeader1            String @db.VarChar(255)
+  SubHeader2            String @db.VarChar(255)
+  SubHeader3            String @db.VarChar(255)
+  Title                 String @db.VarChar(255)
+  Footer                String @db.VarChar(255)
+  TwoColumnHeaderLeft   String @db.VarChar(255)
+  TwoColumnHeaderRight  String @db.VarChar(255)
+  TwoColumnFooterLeft   String @db.VarChar(255)
+  TwoColumnFooterRight  String @db.VarChar(255)
+  SigningTitle1         String @db.VarChar(255)
+  SigningTitle2         String @db.VarChar(255)
+  SigningTitle3         String @db.VarChar(255)
+  IsCustomReceiptDesign Int?
+}
+
+model brokenproduct {
+  Id           Int       @id @default(autoincrement())
+  Destination  String    @db.VarChar(255)
+  StatusId     String    @db.VarChar(255)
+  Remarks      String    @db.VarChar(255)
+  WarehouseId  Int?
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model brokenproductitem {
+  Id                Int       @id @default(autoincrement())
+  BrokenProductId   Int?
+  Barcode           String    @db.VarChar(255)
+  Qty               Float?    @db.Float
+  Cost              Float?    @db.Float
+  ImportProductIds  String    @db.VarChar(255)
+  ImportProductsQty String    @db.VarChar(255)
+  WarehouseId       Int?
+  LastUpdate        DateTime? @db.DateTime(0)
+  Create            DateTime? @db.DateTime(0)
+  CreateBy          String    @db.VarChar(255)
+  LastUpdateBy      String    @db.VarChar(255)
+  IsDelete          Int?
+}
+
+model connectedmachine {
+  Id           Int       @id @default(autoincrement())
+  MachineId    String    @db.VarChar(255)
+  PCName       String    @db.VarChar(255)
+  Version      String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model coupon {
+  Id                  Int       @id @default(autoincrement())
+  CouponNumber        String    @db.VarChar(255)
+  RefOrderId          Int?
+  RefBillId           Int?
+  CouponRequirementId Int?
+  Discount            Float?    @db.Float
+  ExpiredDate         DateTime? @db.DateTime(0)
+  UsedWithOrderId     Int?
+  UsedWithBillId      Int?
+  ApplyDate           DateTime? @db.DateTime(0)
+  Status              Int?
+  LastUpdate          DateTime? @db.DateTime(0)
+  Create              DateTime? @db.DateTime(0)
+  CreateBy            String    @db.VarChar(255)
+  LastUpdateBy        String    @db.VarChar(255)
+  IsDelete            Int?
+}
+
+model couponproductrequirement {
+  Id           Int       @id @default(autoincrement())
+  CouponId     Int?
+  Barcode      String    @db.VarChar(255)
+  Entity       Int?
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model couponrequirement {
+  Id           Int       @id @default(autoincrement())
+  Icon         String    @db.VarChar(255)
+  Name         String    @db.VarChar(255)
+  OnlyProduct  Int?
+  Buy          Float?    @db.Float
+  BuyType      Int?
+  Condition    Int?
+  Discount     Float?    @db.Float
+  Expire       DateTime? @db.DateTime(0)
+  Start        DateTime? @db.DateTime(0)
+  Target       Int?
+  Remarks      String    @db.VarChar(255)
+  Image        String    @db.MediumText
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model creditnotesetting {
+  Type                 String @id @db.VarChar(255)
+  Logo                 String @db.MediumText
+  LogoSize             String @db.VarChar(255)
+  Header               String @db.VarChar(255)
+  SubHeader1           String @db.VarChar(255)
+  SubHeader2           String @db.VarChar(255)
+  SubHeader3           String @db.VarChar(255)
+  Title                String @db.VarChar(255)
+  Footer               String @db.VarChar(255)
+  TwoColumnHeaderLeft  String @db.VarChar(255)
+  TwoColumnHeaderRight String @db.VarChar(255)
+  TwoColumnFooterLeft  String @db.VarChar(255)
+  TwoColumnFooterRight String @db.VarChar(255)
+}
+
+model creditor {
+  Id              Int       @id @default(autoincrement())
+  TotalDept       Float?    @db.Float
+  TotalPaid       Float?    @db.Float
+  Total           Float?    @db.Float
+  Type            Int?
+  RefDocumentId   String    @db.VarChar(255)
+  VendorId        String    @db.VarChar(255)
+  DueDate         DateTime? @db.DateTime(0)
+  PaymentDate     DateTime? @db.DateTime(0)
+  Remarks         String    @db.VarChar(255)
+  PurchaseOrderId Int?
+  LastUpdate      DateTime? @db.DateTime(0)
+  Create          DateTime? @db.DateTime(0)
+  CreateBy        String    @db.VarChar(255)
+  LastUpdateBy    String    @db.VarChar(255)
+  IsDelete        Int?
+}
+
+model creditoritem {
+  Id           Int       @id @default(autoincrement())
+  CreditorId   Int?
+  Barcode      String    @db.VarChar(255)
+  Qty          Float?    @db.Float
+  Cost         Float?    @db.Float
+  VatType      Int?
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model creditorpayment {
+  Id           Int       @id @default(autoincrement())
+  CreditorId   Int?
+  Amount       Float?    @db.Float
+  PaymentDate  DateTime? @db.DateTime(0)
+  Remarks      String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model customerdisplayadvancesetting {
+  Id                  Int       @id @default(autoincrement())
+  LayoutId            Int?
+  SummaryFontSize     Int?
+  ProductItemFontSize Int?
+  ClearDisplayInSec   Int?
+  WelcomeMessage      String    @db.VarChar(255)
+  LastUpdate          DateTime? @db.DateTime(0)
+  Create              DateTime? @db.DateTime(0)
+  CreateBy            String    @db.VarChar(255)
+  LastUpdateBy        String    @db.VarChar(255)
+  IsDelete            Int?
+}
+
+model customerdisplaysetting {
+  Id           Int       @id @default(autoincrement())
+  LayoutId     Int?
+  ImageId      Int?
+  Position     Int?
+  VideoName    String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model databasetimeline {
+  Id                 Int       @id @default(autoincrement())
+  MachineId          String    @db.VarChar(255)
+  PCName             String    @db.VarChar(255)
+  StartProductStatus String    @db.VarChar(255)
+  EndProductStatus   String    @db.VarChar(255)
+  LastActive         DateTime? @db.DateTime(0)
+  StartVersion       String    @db.VarChar(255)
+  EndVersion         String    @db.VarChar(255)
+  Login              Int?
+  LastUpdate         DateTime? @db.DateTime(0)
+  Create             DateTime? @db.DateTime(0)
+  CreateBy           String    @db.VarChar(255)
+  LastUpdateBy       String    @db.VarChar(255)
+  IsDelete           Int?
+}
+
+model deliveryinvoicesetting {
+  Type                  String @id @db.VarChar(255)
+  Logo                  String @db.MediumText
+  LogoSize              String @db.VarChar(255)
+  Header                String @db.VarChar(255)
+  SubHeader1            String @db.VarChar(255)
+  SubHeader2            String @db.VarChar(255)
+  SubHeader3            String @db.VarChar(255)
+  Title                 String @db.VarChar(255)
+  Footer                String @db.VarChar(255)
+  TwoColumnHeaderLeft   String @db.VarChar(255)
+  TwoColumnHeaderRight  String @db.VarChar(255)
+  TwoColumnFooterLeft   String @db.VarChar(255)
+  TwoColumnFooterRight  String @db.VarChar(255)
+  SigningTitle1         String @db.VarChar(255)
+  SigningTitle2         String @db.VarChar(255)
+  SigningTitle3         String @db.VarChar(255)
+  IsCustomReceiptDesign Int?
+}
+
+model documentdesign {
+  Id               Int       @id @default(autoincrement())
+  ItemsJson        String    @db.MediumText
+  Name             String    @db.VarChar(255)
+  Width            Float?    @db.Float
+  Height           Float?    @db.Float
+  Dpi              Float?    @db.Float
+  IsLandscape      Int?
+  IsDynamicContent Int?
+  FontName         String    @db.VarChar(255)
+  LastUpdate       DateTime? @db.DateTime(0)
+  Create           DateTime? @db.DateTime(0)
+  CreateBy         String    @db.VarChar(255)
+  LastUpdateBy     String    @db.VarChar(255)
+  IsDelete         Int?
+}
+
+model employee {
+  Id                     String    @id @db.VarChar(80)
+  Password               String    @db.VarChar(255)
+  Title                  Int?
+  FirstName              String    @db.VarChar(50)
+  LastName               String    @db.VarChar(50)
+  Tel                    String    @db.VarChar(255)
+  Email                  String    @db.VarChar(255)
+  Address                String    @db.VarChar(255)
+  Image                  String    @db.VarChar(255)
+  Status                 Int?
+  IsRightAllBranch       Int?
+  IsActive               Int?
+  IsUseShihtWork         Int?
+  CanViewSaleReport      Int?
+  CanAddEntity           Int?
+  CanUpdateEntity        Int?
+  CanDeleteEntity        Int?
+  CanManualUseCashDrawer Int?
+  LastUpdate             DateTime? @db.DateTime(0)
+  Create                 DateTime? @db.DateTime(0)
+  CreateBy               String    @db.VarChar(255)
+  LastUpdateBy           String    @db.VarChar(255)
+  IsDelete               Int?
+}
+
+model employeeright {
+  Id           Int       @id @default(autoincrement())
+  MenuName     String    @db.VarChar(255)
+  EmployeeId   String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model existmenuitem {
+  Id String @id @db.VarChar(255)
+}
+
+model expensesaccount {
+  Id           Int       @id @default(autoincrement())
+  Name         String    @db.VarChar(255)
+  Price        Float?    @db.Float
+  PaymentType  Int?
+  Category     Int?
+  PaymentRef   String    @db.VarChar(255)
+  Remarks      String    @db.VarChar(255)
+  Date         DateTime? @db.DateTime(0)
+  Type         Int?
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model expensesaccountcategory {
+  Id           Int       @id @default(autoincrement())
+  Name         String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model imageitem {
+  Id           Int       @id @default(autoincrement())
+  ImageId      Int?
+  OrderId      Int?
+  Entity       String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model importproduct {
+  Id                 Int       @id @default(autoincrement())
+  Remarks            String    @db.VarChar(255)
+  Type               Int?
+  RefPurchaseOrderId Int?
+  RefDocumentId      String    @db.VarChar(255)
+  VenderId           String    @db.VarChar(255)
+  TransferSource     String    @db.VarChar(255)
+  TransferId         Int?
+  WarehouseId        Int?
+  LastUpdate         DateTime? @db.DateTime(0)
+  Create             DateTime? @db.DateTime(0)
+  CreateBy           String    @db.VarChar(255)
+  LastUpdateBy       String    @db.VarChar(255)
+  IsDelete           Int?
+}
+
+model importproductdetail {
+  Id                   Int       @id @default(autoincrement())
+  ImportId             Int?
+  Barcode              String    @db.VarChar(255)
+  Qty                  Float?    @db.Float
+  RemainingQty         Float?    @db.Float
+  Cost                 Float?    @db.Float
+  RetailPrice          Float?    @db.Float
+  WholesalePrice       Float?    @db.Float
+  RetailPriceMember    Float?    @db.Float
+  WholesalePriceMember Float?    @db.Float
+  Remarks              String    @db.VarChar(255)
+  Expired              DateTime? @db.DateTime(0)
+  IsIngredient         Int?
+  SetPoint             Float?    @db.Float
+  RecipeImportDetailId Int?
+  VatType              Int?
+  LotNumber            String    @db.VarChar(255)
+  WarehouseId          Int?
+  ParentImportIds      Int?
+  WarehouseLocationId  Int?
+  LastUpdate           DateTime? @db.DateTime(0)
+  Create               DateTime? @db.DateTime(0)
+  CreateBy             String    @db.VarChar(255)
+  LastUpdateBy         String    @db.VarChar(255)
+  IsDelete             Int?
+}
+
+model installment {
+  Id           Int       @id @default(autoincrement())
+  Name         String    @db.VarChar(255)
+  Description  String    @db.VarChar(255)
+  Icon         String    @db.VarChar(255)
+  Part         Int?
+  DownPayment  Float?    @db.Float
+  Interest     Float?    @db.Float
+  Remarks      String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model installmentdetail {
+  Id            Int       @id @default(autoincrement())
+  InstallmentId Int?
+  Part          Int?
+  Percent       Float?    @db.Float
+  Period        Int?
+  PeriodType    Int?
+  LastUpdate    DateTime? @db.DateTime(0)
+  Create        DateTime? @db.DateTime(0)
+  CreateBy      String    @db.VarChar(255)
+  LastUpdateBy  String    @db.VarChar(255)
+  IsDelete      Int?
+}
+
+model labeldesigntemplate {
+  Id           Int       @id @default(autoincrement())
+  Name         String    @db.VarChar(255)
+  Width        Float?    @db.Float
+  Height       Float?    @db.Float
+  Dpi          Float?    @db.Float
+  ItemsJson    String    @db.MediumText
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model linenotificationsetting {
+  Name         String    @id @db.VarChar(255)
+  Enabled      Int?
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model logwork {
+  Id         Int       @id @default(autoincrement())
+  Date       DateTime? @db.DateTime(0)
+  EmployeeId String    @db.VarChar(255)
+  Status     Int?
+}
+
+model member {
+  Id           String    @id @db.VarChar(15)
+  Title        Int?
+  FirstName    String    @db.VarChar(255)
+  LastName     String    @db.VarChar(255)
+  Tel          String    @db.VarChar(255)
+  SSN          String    @db.VarChar(13)
+  BirthDate    DateTime? @db.DateTime(0)
+  Email        String    @db.VarChar(50)
+  Image        String    @db.MediumText
+  Address      String    @db.VarChar(255)
+  Remarks      String    @db.VarChar(50)
+  Point        Float?    @db.Float
+  Level        Int?
+  ScrapPoint   Float?    @db.Float
+  Expire       DateTime? @db.DateTime(0)
+  TaxId        String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model memberrole {
+  Id           Int       @id @default(autoincrement())
+  Name         String    @db.VarChar(255)
+  Remarks      String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model memberrolemapping {
+  Id           Int       @id @default(autoincrement())
+  MemberRoleId Int?
+  MemberId     String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model membertitle {
+  Id           Int       @id @default(autoincrement())
+  Name         String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model notificationitem {
+  Id           Int       @id @default(autoincrement())
+  Message      String    @db.VarChar(255)
+  Type         Int?
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model orderdetailingredient {
+  Id            Int       @id @default(autoincrement())
+  OrderDetailId Int?
+  OrderId       Int?
+  Barcode       String    @db.VarChar(255)
+  SetPoint      Float?    @db.Float
+  Cost          Float?    @db.Float
+  LastUpdate    DateTime? @db.DateTime(0)
+  Create        DateTime? @db.DateTime(0)
+  CreateBy      String    @db.VarChar(255)
+  LastUpdateBy  String    @db.VarChar(255)
+  IsDelete      Int?
+}
+
+model orderinstallment {
+  Quotation       String    @db.VarChar(255)
+  GetMoney        Float?    @db.Float
+  TemplateId      Int?
+  Price           Float?    @db.Float
+  PaymentType     Int?
+  OrderId         Int?
+  TotalPrice      Float?    @db.Float
+  ShiftWorkId     Int?
+  InstallmentType Int?
+  RefundAmount    Float?    @db.Float
+  Id              Int       @id @default(autoincrement())
+  Name            String    @db.VarChar(255)
+  Description     String    @db.VarChar(255)
+  Icon            String    @db.VarChar(255)
+  Part            Int?
+  DownPayment     Float?    @db.Float
+  Interest        Float?    @db.Float
+  Remarks         String    @db.VarChar(255)
+  LastUpdate      DateTime? @db.DateTime(0)
+  Create          DateTime? @db.DateTime(0)
+  CreateBy        String    @db.VarChar(255)
+  LastUpdateBy    String    @db.VarChar(255)
+  IsDelete        Int?
+}
+
+model orderinstallmentdetail {
+  Id                 Int       @id @default(autoincrement())
+  OrderInstallmentId Int?
+  Part               Int?
+  Percent            Float?    @db.Float
+  Period             Int?
+  PeriodType         Int?
+  DueDate            DateTime? @db.DateTime(0)
+  PaymentDate        DateTime? @db.DateTime(0)
+  GetMoney           Float?    @db.Float
+  Quotation          String    @db.VarChar(255)
+  Price              Float?    @db.Float
+  RefundAmount       Float?    @db.Float
+  IsPayment          Int?
+  ShiftWorkId        Int?
+  PaymentType        Int?
+  LastUpdate         DateTime? @db.DateTime(0)
+  Create             DateTime? @db.DateTime(0)
+  CreateBy           String    @db.VarChar(255)
+  LastUpdateBy       String    @db.VarChar(255)
+  IsDelete           Int?
+}
+
+model orderpayment {
+  Id           Int       @id @default(autoincrement())
+  OrderId      Int?
+  Money        Float?    @db.Float
+  Type         Int?
+  PaymentRef   String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model orderpromotion {
+  Id                   Int       @id @default(autoincrement())
+  Icon                 String    @db.VarChar(255)
+  Name                 String    @db.VarChar(255)
+  OnlyProduct          Int?
+  Buy                  Float?    @db.Float
+  BuyType              Int?
+  Condition            Int?
+  Discount             Float?    @db.Float
+  DiscountType         Int?
+  Expire               DateTime? @db.DateTime(0)
+  Free                 Int?
+  Start                DateTime? @db.DateTime(0)
+  Target               Int?
+  Remarks              String    @db.VarChar(255)
+  Image                String    @db.MediumText
+  ProductFreeBarcode   String    @db.VarChar(255)
+  DiscountProductGroup Float?    @db.Float
+  LastUpdate           DateTime? @db.DateTime(0)
+  Create               DateTime? @db.DateTime(0)
+  CreateBy             String    @db.VarChar(255)
+  LastUpdateBy         String    @db.VarChar(255)
+  IsDelete             Int?
+}
+
+model orders {
+  Id                   Int       @id @default(autoincrement())
+  BillId               Int?
+  MemberId             String    @db.VarChar(255)
+  Complete             DateTime? @db.DateTime(0)
+  Status               Int?
+  Cashier              String    @db.VarChar(255)
+  GetMoney             Float?    @db.Float
+  GetPoint             Float?    @db.Float
+  UsePoint             Float?    @db.Float
+  Discount             Float?    @db.Float
+  PercentDiscount      Float?    @db.Float
+  DiscountOnpoint      Float?    @db.Float
+  IsShiftWork          Int?
+  ShiftWorkId          Int?
+  IsInstallment        Int?
+  PCName               String    @db.VarChar(255)
+  PromotionDiscount    Float?    @db.Float
+  VatRate              Float?    @db.Float
+  TaxId                Int?
+  CreateTaxInvoiceDate DateTime? @db.DateTime(0)
+  NumberOfTaxPrinted   Int?
+  PaymentType          Int?
+  PaymentRef           String    @db.VarChar(255)
+  PriceRoundingType    Int?
+  PriceRoundingMethod  Int?
+  CouponDiscount       Float?    @db.Float
+  RestaurantTableId    Int?
+  Remarks              String    @db.VarChar(255)
+  TotalVat             Float?    @db.Float
+  TypeVat              Int?
+  TotalRefund          Float?    @db.Float
+  TotalRefundCost      Float?    @db.Float
+  ServiceCharge        Float?    @db.Float
+  LastUpdate           DateTime? @db.DateTime(0)
+  Create               DateTime? @db.DateTime(0)
+  CreateBy             String    @db.VarChar(255)
+  LastUpdateBy         String    @db.VarChar(255)
+  IsDelete             Int?
+}
+
+model ordersdetail {
+  Id                  Int       @id @default(autoincrement())
+  OrderId             Int?
+  StockImportId       Int?
+  Barcode             String    @db.VarChar(255)
+  Price               Float?    @db.Float
+  TypeSale            Int?
+  Discount            Float?    @db.Float
+  Date                DateTime? @db.DateTime(0)
+  Qty                 Float?    @db.Float
+  TypeVat             Int?
+  Vat                 Float?    @db.Float
+  QtyReturn           Float?    @db.Float
+  BillQtyReturn       Float?    @db.Float
+  StockReturnQty      Float?    @db.Float
+  PromotionId         Int?
+  Cost                Float?    @db.Float
+  CostVatType         Int?
+  CostVat             Float?    @db.Float
+  IsUseBarcodePack    Int?
+  IsRecipe            Int?
+  Serial              String    @db.VarChar(255)
+  IsUseWeightBarcode  Int?
+  Weight              Float?    @db.Float
+  WeightBarcode       String    @db.VarChar(255)
+  PriceRoundingType   Int?
+  PriceRoundingMethod Int?
+  ImportProductIds    String    @db.VarChar(255)
+  ImportProductsQty   String    @db.VarChar(255)
+  AttributeName       String    @db.VarChar(255)
+  AdjustPrice         Float?    @db.Float
+  LastUpdate          DateTime? @db.DateTime(0)
+  Create              DateTime? @db.DateTime(0)
+  CreateBy            String    @db.VarChar(255)
+  LastUpdateBy        String    @db.VarChar(255)
+  IsDelete            Int?
+}
+
+model pagingname {
+  Id           Int       @id @default(autoincrement())
+  PageNumber   Int?
+  Name         String    @db.VarChar(255)
+  Type         String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model paymentmethod {
+  Id           Int       @id @default(autoincrement())
+  Name         String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model posimage {
+  Id           Int       @id @default(autoincrement())
+  Base64Data   String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model Product {
+  Barcode                String    @id @db.VarChar(50)
+  SecondaryBarcode       String    @db.VarChar(20)
+  Name                   String    @db.VarChar(255)
+  Category               Int?
+  Qty                    Float?    @db.Float
+  Unit                   Int?
+  Image                  String    @db.MediumText
+  Remarks                String    @db.VarChar(255)
+  RetailPrice            Float?    @db.Float
+  WholesalePrice         Float?    @db.Float
+  RetailPriceMember      Float?    @db.Float
+  WholesalePriceMember   Float?    @db.Float
+  Point                  Int?
+  LimitSale              Int?
+  Cost                   Float?    @db.Float
+  CostType               Int?
+  Vat                    Int?
+  Left                   Float?    @db.Float
+  Over                   Float?    @db.Float
+  LastSaleTime           DateTime? @db.DateTime(0)
+  IsUseBarcodePack       Int?
+  BarcodePack            String    @db.VarChar(255)
+  QtyPerPack             Float?    @db.Float
+  NameOfPack             String    @db.VarChar(255)
+  RetailPricePack        Float?    @db.Float
+  WholeSalePricePack     Float?    @db.Float
+  UnitPack               Int?
+  IsRecipe               Int?
+  IsNoCutStock           Int?
+  AllowChangePriceOnSale Int?
+  VendorId               String    @db.VarChar(255)
+  LastCheckStock         DateTime? @db.DateTime(0)
+  Expired                DateTime? @db.DateTime(0)
+  HasTierPrice           Int?
+  IsIngredientMapping    Int?
+  StockManagementType    Int?
+  ProductType            Int?
+  HasAttribute           Int?
+  WarehouseLocationId    Int?
+  LastUpdate             DateTime? @db.DateTime(0)
+  Create                 DateTime? @db.DateTime(0)
+  CreateBy               String    @db.VarChar(255)
+  LastUpdateBy           String    @db.VarChar(255)
+  IsDelete               Int?
+}
+
+model productactivitylog {
+  Id           Int       @id @default(autoincrement())
+  Barcode      String    @db.VarChar(255)
+  OldData      String    @db.VarChar(255)
+  NewData      String    @db.VarChar(255)
+  Type         Int?
+  HostName     String    @db.VarChar(255)
+  Page         String    @db.VarChar(255)
+  EntityId     String    @db.VarChar(255)
+  WarehouseId  Int?
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model productattribute {
+  Id           Int       @id @default(autoincrement())
+  Barcode      String    @db.VarChar(255)
+  Name         String    @db.VarChar(255)
+  AdjustPrice  Float?    @db.Float
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model productcategory {
+  Id           Int       @id @default(autoincrement())
+  Name         String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model productignorepoint {
+  Id           Int       @id @default(autoincrement())
+  Barcode      String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model productingredient {
+  Id                Int       @id @default(autoincrement())
+  Barcode           String    @db.VarChar(255)
+  BarcodeIngredient String    @db.VarChar(255)
+  SetPoint          Float?    @db.Float
+  LastUpdate        DateTime? @db.DateTime(0)
+  Create            DateTime? @db.DateTime(0)
+  CreateBy          String    @db.VarChar(255)
+  LastUpdateBy      String    @db.VarChar(255)
+  IsDelete          Int?
+}
+
+model productserial {
+  Id                Int       @id @default(autoincrement())
+  ImportId          Int?
+  ImportDetailId    Int?
+  Barcode           String    @db.VarChar(255)
+  SerialNumber      String    @db.VarChar(255)
+  OrderId           Int?
+  RequisitionId     Int?
+  OrderDetailId     Int?
+  RequisitionItemId Int?
+  IsActive          Int?
+  Cost              Float?    @db.Float
+  Active            DateTime? @db.DateTime(0)
+  LastUpdate        DateTime? @db.DateTime(0)
+  Create            DateTime? @db.DateTime(0)
+  CreateBy          String    @db.VarChar(255)
+  LastUpdateBy      String    @db.VarChar(255)
+  IsDelete          Int?
+}
+
+model producttierprice {
+  Id                   Int       @id @default(autoincrement())
+  Barcode              String    @db.VarChar(255)
+  RetailPrice          Float?    @db.Float
+  WholesalePrice       Float?    @db.Float
+  RetailPriceMember    Float?    @db.Float
+  WholesalePriceMember Float?    @db.Float
+  MinQty               Float?    @db.Float
+  MaxQty               Float?    @db.Float
+  MemberRoleId         Int?
+  LastUpdate           DateTime? @db.DateTime(0)
+  Create               DateTime? @db.DateTime(0)
+  CreateBy             String    @db.VarChar(255)
+  LastUpdateBy         String    @db.VarChar(255)
+  IsDelete             Int?
+}
+
+model producttransfer {
+  Id                 Int       @id @default(autoincrement())
+  Source             String    @db.VarChar(255)
+  SourceWarehouseId  Int?
+  Destination        String    @db.VarChar(255)
+  DesWarehouseId     Int?
+  StatusId           String    @db.VarChar(255)
+  Remarks            String    @db.VarChar(255)
+  DesImportProductId Int?
+  IsSyncFail         Int?
+  LastUpdate         DateTime? @db.DateTime(0)
+  Create             DateTime? @db.DateTime(0)
+  CreateBy           String    @db.VarChar(255)
+  LastUpdateBy       String    @db.VarChar(255)
+  IsDelete           Int?
+}
+
+model producttransferitem {
+  Id                     Int       @id @default(autoincrement())
+  TransferId             Int?
+  Barcode                String    @db.VarChar(255)
+  TransferQty            Float?    @db.Float
+  Cost                   Float?    @db.Float
+  VatType                Int?
+  ImportedQty            Float?    @db.Float
+  ImportProductIds       String    @db.VarChar(255)
+  ImportProductsQty      String    @db.VarChar(255)
+  SourceWarehouseId      Int?
+  DesWarehouseLocationId Int?
+  LastUpdate             DateTime? @db.DateTime(0)
+  Create                 DateTime? @db.DateTime(0)
+  CreateBy               String    @db.VarChar(255)
+  LastUpdateBy           String    @db.VarChar(255)
+  IsDelete               Int?
+}
+
+model productunit {
+  Id           Int       @id @default(autoincrement())
+  Name         String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model promotion {
+  Id                   Int       @id @default(autoincrement())
+  Icon                 String    @db.VarChar(255)
+  Name                 String    @db.VarChar(255)
+  OnlyProduct          Int?
+  Buy                  Float?    @db.Float
+  BuyType              Int?
+  Condition            Int?
+  Discount             Float?    @db.Float
+  DiscountType         Int?
+  Expire               DateTime? @db.DateTime(0)
+  Free                 Int?
+  Start                DateTime? @db.DateTime(0)
+  Target               Int?
+  Remarks              String    @db.VarChar(255)
+  Image                String    @db.MediumText
+  ProductFreeBarcode   String    @db.VarChar(255)
+  DiscountProductGroup Float?    @db.Float
+  LastUpdate           DateTime? @db.DateTime(0)
+  Create               DateTime? @db.DateTime(0)
+  CreateBy             String    @db.VarChar(255)
+  LastUpdateBy         String    @db.VarChar(255)
+  IsDelete             Int?
+}
+
+model promotionproduct {
+  Id           Int       @id @default(autoincrement())
+  PromotionId  Int?
+  Barcode      String    @db.VarChar(255)
+  Entity       Int?
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model purchaseorder {
+  Id               Int       @id @default(autoincrement())
+  VendorId         String    @db.VarChar(255)
+  CashireId        Int?
+  CreatorName      String    @db.VarChar(255)
+  DueDate          String    @db.VarChar(255)
+  CraditDay        String    @db.VarChar(255)
+  PaymentCondition String    @db.VarChar(255)
+  Remarks          String    @db.VarChar(255)
+  VatRat           Int?
+  TypeVat          Int?
+  Status           Int?
+  TotalPrice       Float?    @db.Float
+  TotalBalance     Float?    @db.Float
+  TotalDiscount    Float?    @db.Float
+  TotalVat         Float?    @db.Float
+  Total            Float?    @db.Float
+  Condition1       String    @db.VarChar(255)
+  Condition2       String    @db.VarChar(255)
+  Condition3       String    @db.VarChar(255)
+  LastUpdate       DateTime? @db.DateTime(0)
+  Create           DateTime? @db.DateTime(0)
+  CreateBy         String    @db.VarChar(255)
+  LastUpdateBy     String    @db.VarChar(255)
+  IsDelete         Int?
+}
+
+model purchaseorderdetail {
+  Id              Int       @id @default(autoincrement())
+  PurchaseOrderId Int?
+  Barcode         String    @db.VarChar(255)
+  Qty             Float?    @db.Float
+  Price           Float?    @db.Float
+  Discount        Float?    @db.Float
+  Total           Float?    @db.Float
+  LastUpdate      DateTime? @db.DateTime(0)
+  Create          DateTime? @db.DateTime(0)
+  CreateBy        String    @db.VarChar(255)
+  LastUpdateBy    String    @db.VarChar(255)
+  IsDelete        Int?
+}
+
+model purchaseordersetting {
+  Type                 String    @id @db.VarChar(255)
+  Logo                 String    @db.MediumText
+  Header               String    @db.VarChar(255)
+  Description1         String    @db.VarChar(255)
+  Description2         String    @db.VarChar(255)
+  Title                String    @db.VarChar(255)
+  ConditionHeader      String    @db.VarChar(255)
+  ConditionDescription String    @db.VarChar(255)
+  IsCustomDocument     Int?
+  LastUpdate           DateTime? @db.DateTime(0)
+  Create               DateTime? @db.DateTime(0)
+  CreateBy             String    @db.VarChar(255)
+  LastUpdateBy         String    @db.VarChar(255)
+  IsDelete             Int?
+}
+
+model quotation {
+  Id               Int       @id @default(autoincrement())
+  MemberId         String    @db.VarChar(255)
+  CashireId        Int?
+  CreatorName      String    @db.VarChar(255)
+  DueDate          String    @db.VarChar(255)
+  CraditDay        String    @db.VarChar(255)
+  PaymentCondition String    @db.VarChar(255)
+  Remarks          String    @db.VarChar(255)
+  VatRat           Int?
+  TypeVat          Int?
+  Status           Int?
+  TotalPrice       Float?    @db.Float
+  TotalBalance     Float?    @db.Float
+  ProductDiscount  Float?    @db.Float
+  BillDiscount     Float?    @db.Float
+  TotalDiscount    Float?    @db.Float
+  TotalVat         Float?    @db.Float
+  Total            Float?    @db.Float
+  Condition1       String    @db.VarChar(255)
+  Condition2       String    @db.VarChar(255)
+  Condition3       String    @db.VarChar(255)
+  LastUpdate       DateTime? @db.DateTime(0)
+  Create           DateTime? @db.DateTime(0)
+  CreateBy         String    @db.VarChar(255)
+  LastUpdateBy     String    @db.VarChar(255)
+  IsDelete         Int?
+}
+
+model quotationdetail {
+  Id           Int       @id @default(autoincrement())
+  QuotationId  Int?
+  Barcode      String    @db.VarChar(255)
+  Qty          Float?    @db.Float
+  Price        Float?    @db.Float
+  Discount     Float?    @db.Float
+  Total        Float?    @db.Float
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model quotationsetting {
+  Type                 String    @id @db.VarChar(255)
+  Logo                 String    @db.MediumText
+  Header               String    @db.VarChar(255)
+  Description1         String    @db.VarChar(255)
+  Description2         String    @db.VarChar(255)
+  Title                String    @db.VarChar(255)
+  ConditionHeader      String    @db.VarChar(255)
+  ConditionDescription String    @db.VarChar(255)
+  IsCustomDocument     Int?
+  LastUpdate           DateTime? @db.DateTime(0)
+  Create               DateTime? @db.DateTime(0)
+  CreateBy             String    @db.VarChar(255)
+  LastUpdateBy         String    @db.VarChar(255)
+  IsDelete             Int?
+}
+
+model receiptsetting {
+  Type                  String    @id @db.VarChar(255)
+  Logo                  String    @db.MediumText
+  LogoSize              String    @db.VarChar(255)
+  Header                String    @db.VarChar(255)
+  SubHeader1            String    @db.VarChar(255)
+  SubHeader2            String    @db.VarChar(255)
+  SubHeader3            String    @db.VarChar(255)
+  Title                 String    @db.VarChar(255)
+  Footer                String    @db.VarChar(255)
+  TwoColumnHeaderLeft   String    @db.VarChar(255)
+  TwoColumnHeaderRight  String    @db.VarChar(255)
+  TwoColumnFooterLeft   String    @db.VarChar(255)
+  TwoColumnFooterRight  String    @db.VarChar(255)
+  IsShowSlipNO          Int?
+  IsCustomReceiptDesign Int?
+  LastUpdate            DateTime? @db.DateTime(0)
+  Create                DateTime? @db.DateTime(0)
+  CreateBy              String    @db.VarChar(255)
+  LastUpdateBy          String    @db.VarChar(255)
+  IsDelete              Int?
+}
+
+model recyclebin {
+  Id           Int       @id @default(autoincrement())
+  KeyGroup     String    @db.VarChar(255)
+  EntityId     String    @db.VarChar(255)
+  Note         String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model remotemachine {
+  Id            Int       @id @default(autoincrement())
+  Token         String    @db.VarChar(255)
+  LastConnected DateTime? @db.DateTime(0)
+  ConnectCount  Int?
+  Name          String    @db.VarChar(255)
+  LastUpdate    DateTime? @db.DateTime(0)
+  Create        DateTime? @db.DateTime(0)
+  CreateBy      String    @db.VarChar(255)
+  LastUpdateBy  String    @db.VarChar(255)
+  IsDelete      Int?
+}
+
+model requisition {
+  Id                Int       @id @default(autoincrement())
+  CustomId          Int?
+  RequisitionerId   String    @db.VarChar(255)
+  Complete          DateTime? @db.DateTime(0)
+  Status            Int?
+  PCName            String    @db.VarChar(255)
+  PromotionDiscount Float?    @db.Float
+  Remarks           String    @db.VarChar(255)
+  WarehouseId       Int?
+  LastUpdate        DateTime? @db.DateTime(0)
+  Create            DateTime? @db.DateTime(0)
+  CreateBy          String    @db.VarChar(255)
+  LastUpdateBy      String    @db.VarChar(255)
+  IsDelete          Int?
+}
+
+model requisitiondocumentsetting {
+  Type                  String @id @db.VarChar(255)
+  Logo                  String @db.MediumText
+  LogoSize              String @db.VarChar(255)
+  Header                String @db.VarChar(255)
+  SubHeader1            String @db.VarChar(255)
+  SubHeader2            String @db.VarChar(255)
+  SubHeader3            String @db.VarChar(255)
+  Title                 String @db.VarChar(255)
+  Footer                String @db.VarChar(255)
+  TwoColumnHeaderLeft   String @db.VarChar(255)
+  TwoColumnHeaderRight  String @db.VarChar(255)
+  TwoColumnFooterLeft   String @db.VarChar(255)
+  TwoColumnFooterRight  String @db.VarChar(255)
+  SigningTitle1         String @db.VarChar(255)
+  SigningTitle2         String @db.VarChar(255)
+  SigningTitle3         String @db.VarChar(255)
+  IsCustomReceiptDesign Int?
+}
+
+model requisitioner {
+  Id           String    @id @db.VarChar(15)
+  Title        Int?
+  FirstName    String    @db.VarChar(255)
+  LastName     String    @db.VarChar(255)
+  Tel          String    @db.VarChar(15)
+  SSN          String    @db.VarChar(13)
+  BirthDate    DateTime? @db.DateTime(0)
+  Email        String    @db.VarChar(50)
+  Image        String    @db.MediumText
+  Address      String    @db.VarChar(255)
+  Remarks      String    @db.VarChar(50)
+  Expire       DateTime? @db.DateTime(0)
+  TaxId        String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model requisitionitem {
+  Id                 Int       @id @default(autoincrement())
+  RequisitionId      Int?
+  Barcode            String    @db.VarChar(255)
+  Qty                Float?    @db.Float
+  QtyReturn          Float?    @db.Float
+  Cost               Float?    @db.Float
+  IsRecipe           Int?
+  Serial             String    @db.VarChar(255)
+  IsUseWeightBarcode Int?
+  Weight             Float?    @db.Float
+  WeightBarcode      String    @db.VarChar(255)
+  ImportProductIds   String    @db.VarChar(255)
+  ImportProductsQty  String    @db.VarChar(255)
+  WarehouseId        Int?
+  LastUpdate         DateTime? @db.DateTime(0)
+  Create             DateTime? @db.DateTime(0)
+  CreateBy           String    @db.VarChar(255)
+  LastUpdateBy       String    @db.VarChar(255)
+  IsDelete           Int?
+}
+
+model requisitionitemingredient {
+  Id                Int       @id @default(autoincrement())
+  RequisitionItemId Int?
+  RequisitionId     Int?
+  Barcode           String    @db.VarChar(255)
+  SetPoint          Float?    @db.Float
+  Cost              Float?    @db.Float
+  WarehouseId       Int?
+  LastUpdate        DateTime? @db.DateTime(0)
+  Create            DateTime? @db.DateTime(0)
+  CreateBy          String    @db.VarChar(255)
+  LastUpdateBy      String    @db.VarChar(255)
+  IsDelete          Int?
+}
+
+model reservedtable {
+  Id           Int       @id @default(autoincrement())
+  TableId      Int?
+  Remarks      String    @db.VarChar(255)
+  Tel          String    @db.VarChar(255)
+  Expired      DateTime? @db.DateTime(0)
+  Status       Int?
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model restaurantorder {
+  Id           Int       @id @default(autoincrement())
+  TableId      Int?
+  OrderId      Int?
+  Start        DateTime? @db.DateTime(0)
+  Close        DateTime? @db.DateTime(0)
+  Expired      DateTime? @db.DateTime(0)
+  Status       Int?
+  Remarks      String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model restauranttable {
+  Id           Int       @id
+  Name         String    @db.VarChar(255)
+  IsVIP        Int?
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model returnproduct {
+  Id              Int       @id @default(autoincrement())
+  ReturnProductId Int?
+  OrderId         Int?
+  BillId          Int?
+  OrderDetailId   Int?
+  Barcode         String    @db.VarChar(255)
+  QtyReturn       Float?    @db.Float
+  Price           Float?    @db.Float
+  TotalPrice      Float?    @db.Float
+  TotalVat        Float?    @db.Float
+  MemberId        String    @db.VarChar(255)
+  IsRestore       Int?
+  Remarks         String    @db.VarChar(255)
+  LastUpdate      DateTime? @db.DateTime(0)
+  Create          DateTime? @db.DateTime(0)
+  CreateBy        String    @db.VarChar(255)
+  LastUpdateBy    String    @db.VarChar(255)
+  IsDelete        Int?
+}
+
+model returnproductinfo {
+  Id                Int       @id @default(autoincrement())
+  OrderId           Int?
+  BillId            Int?
+  IsPrintCreditNote Int?
+  Remarks           String    @db.VarChar(255)
+  TotalRefund       Float?    @db.Float
+  TotalVat          Float?    @db.Float
+  IsReturnStock     Int?
+  IsEditBill        Int?
+  LastUpdate        DateTime? @db.DateTime(0)
+  Create            DateTime? @db.DateTime(0)
+  CreateBy          String    @db.VarChar(255)
+  LastUpdateBy      String    @db.VarChar(255)
+  IsDelete          Int?
+}
+
+model setting {
+  Id                              String    @id @db.VarChar(255)
+  IsUsePoint                      Int?
+  TypePoint                       Int?
+  RatePointOnSale                 Float?    @db.Float
+  RateUsePoint                    Float?    @db.Float
+  TypeVate                        Int?
+  RateVat                         Float?    @db.Float
+  IsUseShiftWork                  Int?
+  IsPrintSiftWorkSlip             Int?
+  ShiftWorkType                   Int?
+  IsSaleOnQtyEmpty                Int?
+  OrderDiscountType               Int?
+  IsUseWeightBarcode              Int?
+  WeightBarcodeFormat             String    @db.VarChar(255)
+  TypeOfEditPriceOnSale           Int?
+  PriceRoundingType               Int?
+  PriceRoundingMethod             Int?
+  DisplaySaleProductListType      Int?
+  CurrencyType                    String    @db.VarChar(255)
+  IsUseCustomBarcodeMapping       Int?
+  IsRestaurantTimer               Int?
+  RestaurantCountTime             Int?
+  DefaultSaleType                 Int?
+  IsEnableCoupon                  Int?
+  CouponExpiredInDay              Int?
+  PromptPayIdentity               String    @db.VarChar(255)
+  PromptPayName                   String    @db.VarChar(255)
+  IsShowPromptPayQRCode           Int?
+  StockManagementType             Int?
+  IsShowProductNotFoundPopup      Int?
+  IsShowProductQtyNotEnough       Int?
+  IsConfirmCancelSalePassword     Int?
+  IsConfirmOpenCashDrawerPassword Int?
+  ConfirmCancelSalePassword       String    @db.VarChar(255)
+  ReceiptIdPattern                String    @db.VarChar(255)
+  TaxInvoiceIdPattern             String    @db.VarChar(255)
+  DeliveryInvoiceIdPattern        String    @db.VarChar(255)
+  CustomerDisplayLayout           Int?
+  RecipeReceiptType               Int?
+  LineNotificationToken           String    @db.VarChar(255)
+  EnabledLineNotification         Int?
+  EnabledCloudMemberPoint         Int?
+  CloudMemberPointUsername        String    @db.VarChar(255)
+  CloudMemberPointPassword        String    @db.VarChar(255)
+  DateFormat                      Int?
+  WeightDecimalPlaces             Int?
+  HideShiftWorkExpectPrice        Int?
+  DecimalFormat                   Int?
+  ProductExpiredWarningsInDay     Int?
+  BackupFrequencyInHour           Int?
+  IsEnableServiceCharge           Int?
+  ServiceChargeRate               Float?    @db.Float
+  LastUpdate                      DateTime? @db.DateTime(0)
+  Create                          DateTime? @db.DateTime(0)
+  CreateBy                        String    @db.VarChar(255)
+  LastUpdateBy                    String    @db.VarChar(255)
+  IsDelete                        Int?
+}
+
+model shiftwork {
+  Id           Int       @id @default(autoincrement())
+  CashierId    String    @db.VarChar(255)
+  Isclose      Int?
+  Open         DateTime? @db.DateTime(0)
+  Close        DateTime? @db.DateTime(0)
+  OpenMoney    Float?    @db.Float
+  CloseMoney   Float?    @db.Float
+  RemarkOpen   String    @db.VarChar(255)
+  RemarkClose  String    @db.VarChar(255)
+  IsRightMoney Int?
+  ExpectMoney  Float?    @db.Float
+  SalePrice    Float?    @db.Float
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model shortmenuproduct {
+  Id           Int       @id
+  Barcode      String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model stockcheckdetail {
+  Id           Int       @id @default(autoincrement())
+  CheckInfoId  Int?
+  Barcode      String    @db.VarChar(255)
+  ExpectQty    Float?    @db.Float
+  ActualQty    Float?    @db.Float
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model stockcheckinfo {
+  Id            Int       @id @default(autoincrement())
+  Remarks       String    @db.VarChar(255)
+  Type          Int?
+  IsUpdateStock Int?
+  WarehouseId   Int?
+  LastUpdate    DateTime? @db.DateTime(0)
+  Create        DateTime? @db.DateTime(0)
+  CreateBy      String    @db.VarChar(255)
+  LastUpdateBy  String    @db.VarChar(255)
+  IsDelete      Int?
+}
+
+model stockhistory {
+  Id           Int       @id @default(autoincrement())
+  ProductCount Int?
+  TotalCost    Float?    @db.Float
+  ProductQty   Float?    @db.Float
+  ImportCost   Float?    @db.Float
+  ImportCount  Int?
+  ImportQty    Float?    @db.Float
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model tempordersdetail {
+  Id                 Int       @id @default(autoincrement())
+  OrderId            Int?
+  Barcode            String    @db.VarChar(255)
+  TypeSale           Int?
+  Qty                Float?    @db.Float
+  Discount           Float?    @db.Float
+  DiscountType       Float?    @db.Float
+  Date               DateTime? @db.DateTime(0)
+  PromotionId        Int?
+  Price              Float?    @db.Float
+  IsBarcodePack      Int?
+  IsChangePrice      Int?
+  Serial             String    @db.VarChar(255)
+  SerialCost         Float?    @db.Float
+  IsUseWeightBarcode Int?
+  WeightBarcode      String    @db.VarChar(255)
+  ImportProductIds   String    @db.VarChar(255)
+  ImportProductsQty  String    @db.VarChar(255)
+  AttributeName      String    @db.VarChar(255)
+  AdjustPrice        Float?    @db.Float
+  LastUpdate         DateTime? @db.DateTime(0)
+  Create             DateTime? @db.DateTime(0)
+  CreateBy           String    @db.VarChar(255)
+  LastUpdateBy       String    @db.VarChar(255)
+  IsDelete           Int?
+}
+
+model temprequisitionitem {
+  Id                 Int       @id @default(autoincrement())
+  RequisitionId      Int?
+  Serial             String    @db.VarChar(255)
+  SerialCost         Float?    @db.Float
+  Barcode            String    @db.VarChar(255)
+  Qty                Float?    @db.Float
+  Date               DateTime? @db.DateTime(0)
+  ImportProductIds   String    @db.VarChar(255)
+  ImportProductsQty  String    @db.VarChar(255)
+  WeightBarcode      String    @db.VarChar(255)
+  IsUseWeightBarcode Int?
+  WarehouseId        Int?
+  LastUpdate         DateTime? @db.DateTime(0)
+  Create             DateTime? @db.DateTime(0)
+  CreateBy           String    @db.VarChar(255)
+  LastUpdateBy       String    @db.VarChar(255)
+  IsDelete           Int?
+}
+
+model vendor {
+  Id           String    @id @db.VarChar(255)
+  Image        String    @db.MediumText
+  Name         String    @db.VarChar(255)
+  Address      String    @db.VarChar(255)
+  Tel          String    @db.VarChar(255)
+  Fax          String    @db.VarChar(255)
+  TaxId        String    @db.VarChar(255)
+  Email        String    @db.VarChar(255)
+  Remarks      String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
+
+model warehouse {
+  Id                  Int       @id @default(autoincrement())
+  Code                String    @db.VarChar(255)
+  Name                String    @db.VarChar(255)
+  StockManagementType Int?
+  Location            String    @db.VarChar(255)
+  Remarks             String    @db.VarChar(255)
+  LastUpdate          DateTime? @db.DateTime(0)
+  Create              DateTime? @db.DateTime(0)
+  CreateBy            String    @db.VarChar(255)
+  LastUpdateBy        String    @db.VarChar(255)
+  IsDelete            Int?
+}
+
+model warehouselocation {
+  Id           Int       @id @default(autoincrement())
+  WarehouseId  Int?
+  Code         String    @db.VarChar(255)
+  Name         String    @db.VarChar(255)
+  LastUpdate   DateTime? @db.DateTime(0)
+  Create       DateTime? @db.DateTime(0)
+  CreateBy     String    @db.VarChar(255)
+  LastUpdateBy String    @db.VarChar(255)
+  IsDelete     Int?
+}
